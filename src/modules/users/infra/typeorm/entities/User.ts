@@ -1,5 +1,6 @@
+import Transaction from "@modules/transactions/infra/typeorm/entities/Transaction";
 import { Exclude } from "class-transformer";
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('users')
 class User {
@@ -15,6 +16,9 @@ class User {
     @Column()
     @Exclude()
     password: string;
+
+    @OneToMany(() => Transaction, transaction => transaction.user)
+    transactions: Transaction[];
 
     @CreateDateColumn()
     created_at: Date;
